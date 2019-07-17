@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<head>
+    <title>
+        To-Do List
+    </title>
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="css/todo.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Abel&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <header>Your To-Do List</header>
+        <div id="inputNewTask" class="row">
+            <div id="label">
+                <label for="addNewTask" class="col-12 underline">Add Tasks</label>
+            </div>
+            <input id="add-task-input" class="col-sm-12 col-md-8 col-lg-8" type="text"> </input>
+            <div id="submit-button-div" class="col-sm-12 col-md-4 col-lg-4">
+                <button id="submit-button" class="button-styling">Submit</button>
+            </div>
+        </div>
+        <div id="hide-my-text">
+            oops! Looks like you haven't entered a task.
+        </div>
+        <p class="to-do-heading underline col-12">To-Do</p>
+        <ol id="hold-my-pending-list">
+
+        </ol>
+
+        <div id="done-deleted-task-div" class="row">
+            <p id="done-task-header" class="col-6">&#128079</p>
+            <p id="deleted-task-header" class="col-6">&#128465</p>
+            <ol id="done-task-list" class="col-5 wrap-text done-deleted-list-margin">
+
+            </ol>
+            <ol id="deleted-task-list" class="col-5 wrap-text done-deleted-list-margin">
+
+            </ol>
+
+
+
+        </div>
+    </div>
+    <script src="js/todo.js"></script>
+
+
+</body>

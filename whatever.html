@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link href="practice-css/practice.css" rel="stylesheet">
+
+<body>
+
+    <div class="container-fluid">
+        <header>Your To-Do List</header>
+        <div id="input-new-task" class="row">
+            <div id="label">
+                <label for="add-task-text" class="col-12 underline">Add Tasks</label>
+            </div>
+            <input id="add-task-input" class="col-sm-12 col-md-8 col-lg-8" type="text"> </input>
+            <div id="submit-button-div" class="col-sm-12 col-md-4 col-lg-4">
+                <button id="submit-button" class="button-styling">Submit</button>
+            </div>
+        </div>
+        <p class="underline">To-Do</p> 
+        <ol id="pending-list">
+
+        </ol>
+        <div id="done-deleted-task-div" class="row">
+            <ol id="done-task" class="col-6 wrap-text">
+                <p>&#128079
+                </p>
+            </ol>
+            <ol id="deleted-task" class="col-6 wrap-text">
+                <p class="underline">&#128465</p>
+            </ol>
+        </div>
+    </div>
+
+
+    <script src="localstoragepractce.js/localstoragepractice.js"></script>
+</body>

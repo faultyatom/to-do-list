@@ -1,0 +1,59 @@
+body{
+    font-family: 'Abel', serif;
+    font-size: 2rem;
+    background-color: #E8DCD7;
+    color: #424140;
+    padding: 15px 15px; 
+}
+header{
+    display: flex;
+    justify-content: center;
+    font-size: 2.3rem;
+    margin-bottom: 2rem;
+}
+#hide-my-text, .hidden-text{
+    visibility: hidden; 
+}
+.done-task{
+    text-decoration: line-through;
+}
+header, .underline{
+    text-decoration: underline;     
+}
+#add-task-input, .button-styling {
+    border: 1px solid #424140;
+    color: #424140; 
+    border-radius: 0.2rem; 
+    background-color: #E8DCD7;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+}
+.task-text-styling, .button-styling{
+    margin-top: 5px; 
+}
+#done-deleted-task-div{
+    margin-top: 2rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    display: flex;
+    border-top: 1px solid #424140;
+    border-bottom: 1px solid #424140;
+}
+.wrap-text{
+    overflow-wrap: break-word;  
+}
+#add-task-input{
+    padding: 10px 10px;
+}
+#inputNewTask{
+    display: block;
+}
+#submit-button{
+    margin-left: -15px;
+    margin-top: 15px;
+}
+.button-styling:hover{
+    background-color: #CFC8C4;
+    color: #424140;
+}
+.done-deleted-list-margin{
+    margin-left: 25px;
+}
