@@ -8,28 +8,9 @@ function createList() {
     return list;
 }
 
-// var previouslySavedList = JSON.parse(localStorage.getItem("list"));
-// console.log(previouslySavedList);
-// var createdList;
-// if (previouslySavedList !== null) {
-//     createdList = previouslySavedList;
-//     //myInitialUi(createdList);
-//     for (var index = 0; index < createdList.length; index++) {
-//         task = createdList[index];
-//         newState = task.state;
-//         currentTaskText = task.text;
-//         updateState(currentTaskText, newState, createdList); 
-//     }  
-// } else {
-//     createdList = createList();
-// }
-
 function updateState(currentTaskText, newState, createdList) {
-    for (var index = 0; index < createdList.length; index++) {
-        task = createdList[index];
-        newState = task.state;
-        currentTaskText = task.text;
-    }
+    var index = createdList.length - 1; 
+    
     if (newState == "done") {
         var doneTask = document.getElementById("done-task-list");
         var doneTaskListElement = document.createElement("li");
@@ -157,26 +138,20 @@ console.log(previouslySavedList);
 var createdList;
 if (previouslySavedList !== null) {
     createdList = previouslySavedList;
-    //myInitialUi(createdList);
-    for (var index = 0; index < createdList.length; index++) {
-        task = createdList[index];
-        newState = task.state;
-        currentTaskText = task.text;
-        updateState(currentTaskText, newState, createdList); 
-    }  
+    myInitialUi(createdList);  
 } else {
     createdList = createList();
 }
 
 
-// function myInitialUi(createdList) {
-//     for(var i = 0; i < createdList.length; i++){
-//         var currentTask = createdList[i];
-//         var currentTaskState = currentTask.state; 
-
-//     }
-//     updateState(currentTask, currentTaskState, createdList); 
-// }
+function myInitialUi(createdList) {
+    for (var i = 0; i < createdList.length; i++) {
+        var currentTask = createdList[i];
+        var currentTaskState = currentTask.state;
+        var currentTaskText = currentTask.text; 
+        updateState(currentTaskText, currentTaskState, createdList);  
+    }
+}
 
 function addTaskToList(previouslyCreatedList, taskToBeAdded) {
     previouslyCreatedList.push(taskToBeAdded);
@@ -244,14 +219,14 @@ function markDoneOnclick(event) {
     var indexOfTask = buttonThatWasClicked.getAttribute("data-index");
     createdList = markDone(createdList, indexOfTask);
 
-    var currentTask = createdList[indexOfTask]; 
+    var currentTask = createdList[indexOfTask];
     var currentTaskText = currentTask.text;
     var currentTaskState = currentTask.state;
     //var recreatedTaskTextId = generateTextTaskId(indexOfTask);
     //var doneTaskText = document.getElementById(recreatedTaskTextId).textContent;
     //createDoneListElement(doneTaskText, indexOfTask);    
     //updateState()
-    updateState(currentTaskText, currentTaskState, createdList); 
+    updateState(currentTaskText, currentTaskState, createdList);
 
     var pendingListId = generatePendingListId(indexOfTask);
     var fetchPendingListId = document.getElementById(pendingListId);
