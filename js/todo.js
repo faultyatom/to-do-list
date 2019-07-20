@@ -193,7 +193,6 @@ function submitButtonOnclick(event) {
         // localStorage.setItem("list", JSON.stringify(createdList));
 
     }
-    //updateState(currentTaskText, currentTaskState, createdList); 
 
     console.log(createdList);
     myInputField.value = '';
@@ -201,18 +200,7 @@ function submitButtonOnclick(event) {
 
 submitButton.onclick = submitButtonOnclick;
 
-// function addElement(text, index) {
-//     //createPendingListElement(text, index);
-//     for(var i = 0; i < createdList.length; i++){
-//         currentTask = createdList[i];
-//         currentTaskState = currentTask.state;
-//         //currentTaskText = currentTask.text; 
-//         updateState(text, currentTaskState, createdList);  
 
-//     }
-//     // updateState(text, currentTaskState, createdList);  
-//     localStorage.setItem("list", JSON.stringify(createdList));
-// }
 
 function markDoneOnclick(event) {
     var buttonThatWasClicked = event.target;
