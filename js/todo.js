@@ -183,15 +183,9 @@ function submitButtonOnclick(event) {
     } else {
         createdList = addTask(textUserHasEntered, createdList);
         var i = createdList.length - 1;
-        //addElement(textUserHasEntered, indexOfNewTask);
-        //for(var i = 0; i < createdList.length; i++){
-        //currentTask = createdList[i];
         currentTaskState = createdList[i].state;
-        ///currentTaskText = currentTask.text;
         localStorage.setItem("list", JSON.stringify(createdList));
-        updateState(textUserHasEntered, currentTaskState, createdList);
-        // localStorage.setItem("list", JSON.stringify(createdList));
-
+        updateState(textUserHasEntered, currentTaskState, createdList); 
     }
 
     console.log(createdList);
@@ -199,8 +193,6 @@ function submitButtonOnclick(event) {
 }
 
 submitButton.onclick = submitButtonOnclick;
-
-
 
 function markDoneOnclick(event) {
     var buttonThatWasClicked = event.target;
@@ -211,10 +203,10 @@ function markDoneOnclick(event) {
     var currentTaskText = currentTask.text;
     var currentTaskState = currentTask.state;
     //var recreatedTaskTextId = generateTextTaskId(indexOfTask);
-    //var doneTaskText = document.getElementById(recreatedTaskTextId).textContent;
-    //createDoneListElement(doneTaskText, indexOfTask);    
-    //updateState()
-    updateState(currentTaskText, currentTaskState, createdList);
+    // //var doneTaskText = document.getElementById(recreatedTaskTextId).textContent;
+    // //createDoneListElement(doneTaskText, indexOfTask);    
+    // //updateState()
+     updateState(currentTaskText, currentTaskState, createdList); 
 
     var pendingListId = generatePendingListId(indexOfTask);
     var fetchPendingListId = document.getElementById(pendingListId);
@@ -227,11 +219,11 @@ function deleteButtonOnclick(event) {
     var clickedButton = event.target;
     var indexOfTask = clickedButton.getAttribute("data-index");
     createdList = markDelete(createdList, indexOfTask);
+    var currentTaskState = createdList[indexOfTask].state;
 
-    // var recreatedTaskTextId = generateTextTaskId(indexOfTask);
-    // var deletedTasktext = document.getElementById(recreatedTaskTextId).textContent;
-    // createDeleteListElement(deletedTasktext, indexOfTask);
-    updateState;
+    var recreatedTaskTextId = generateTextTaskId(indexOfTask);
+    var deletedTasktext = document.getElementById(recreatedTaskTextId).textContent;
+    updateState(deletedTasktext, currentTaskState, createdList); 
 
     var pendingListDivId = generatePendingListId(indexOfTask);
     var deleteMyEntireTask = document.getElementById(pendingListDivId);
