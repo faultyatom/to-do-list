@@ -8,9 +8,7 @@ function createList() {
     return list;
 }
 
-function updateState(currentTaskText, newState, createdList) {
-    var index = createdList.length - 1; 
-    
+function updateStateAndCreateUi(currentTaskText, newState, createdList, index) {
     if (newState == "done") {
         var doneTask = document.getElementById("done-task-list");
         var doneTaskListElement = document.createElement("li");
@@ -131,6 +129,7 @@ function updateState(currentTaskText, newState, createdList) {
         markDeleteButtonDiv.classList.add("col-1");
         markDeleteButton.classList.add("button-styling");
     }
+
 }
 
 var previouslySavedList = JSON.parse(localStorage.getItem("list"));
@@ -138,18 +137,17 @@ console.log(previouslySavedList);
 var createdList;
 if (previouslySavedList !== null) {
     createdList = previouslySavedList;
-    myInitialUi(createdList);  
+    myInitialUi(createdList);
 } else {
     createdList = createList();
 }
-
 
 function myInitialUi(createdList) {
     for (var i = 0; i < createdList.length; i++) {
         var currentTask = createdList[i];
         var currentTaskState = currentTask.state;
-        var currentTaskText = currentTask.text; 
-        updateState(currentTaskText, currentTaskState, createdList);  
+        var currentTaskText = currentTask.text;
+        updateStateAndCreateUi(currentTaskText, currentTaskState, createdList, i);
     }
 }
 
@@ -185,7 +183,7 @@ function submitButtonOnclick(event) {
         var i = createdList.length - 1;
         currentTaskState = createdList[i].state;
         localStorage.setItem("list", JSON.stringify(createdList));
-        updateState(textUserHasEntered, currentTaskState, createdList); 
+        updateStateAndCreateUi(textUserHasEntered, currentTaskState, createdList, i);
     }
 
     console.log(createdList);
@@ -202,11 +200,7 @@ function markDoneOnclick(event) {
     var currentTask = createdList[indexOfTask];
     var currentTaskText = currentTask.text;
     var currentTaskState = currentTask.state;
-    //var recreatedTaskTextId = generateTextTaskId(indexOfTask);
-    // //var doneTaskText = document.getElementById(recreatedTaskTextId).textContent;
-    // //createDoneListElement(doneTaskText, indexOfTask);    
-    // //updateState()
-     updateState(currentTaskText, currentTaskState, createdList); 
+    updateStateAndCreateUi(currentTaskText, currentTaskState, createdList, indexOfTask);
 
     var pendingListId = generatePendingListId(indexOfTask);
     var fetchPendingListId = document.getElementById(pendingListId);
@@ -223,7 +217,7 @@ function deleteButtonOnclick(event) {
 
     var recreatedTaskTextId = generateTextTaskId(indexOfTask);
     var deletedTasktext = document.getElementById(recreatedTaskTextId).textContent;
-    updateState(deletedTasktext, currentTaskState, createdList); 
+    updateStateAndCreateUi(deletedTasktext, currentTaskState, createdList, indexOfTask);
 
     var pendingListDivId = generatePendingListId(indexOfTask);
     var deleteMyEntireTask = document.getElementById(pendingListDivId);
@@ -286,10 +280,14 @@ function generatePendingListId(index) {
 //     6.2 If there is spelling error in the state, it will be pushed to the pending list. 
 //     6.3 If the state is empty, it will be pushed to the pending list. 
 //     6.4 If there is no text, it will show a text saying no text-input has been added.  
-//     6.5 If all items in local storage have the state of done, they will all be added to the done column. Pending and deleted lists will be empty. Same 
+//     6.5 If all items in local storage have the state of done, they will all be added to the done column. Pending and deleted lists will be            empty. 
+//     6.6 If there are only pending items in the list, it will only show the pending list. Done and deleted lists will be empty. 
+//     6.7 If there are only deleted items in the list, it will only show te deleted list. Done and pending lists will be empty.  
 // 7. When there is a really long sentence, the text will wrap in all the columns irrespective of whether they are added from local storage or if they are newly added items 
 // 8. When the Submit button is clicked, but there is no text-input, a text saying input field is empty will be displayed
 // 9. When numbers are typed in the input field, they will also be added to the pending list 
 // 10. When submit button is clicked:
 //     10.1 it will append the text to the pending list with the mark done/delete buttons
 //     10.2 the input field will become empty once the button is clicked 
+
+//BUG- if the user merely enters white space in the input field, the program prints it with the done and delete button in the pending list when submit is clicked. 
