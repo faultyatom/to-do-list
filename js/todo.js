@@ -8,199 +8,232 @@ function createList() {
     return list;
 }
 
-function createDoneUi(index) {
-    var currentTaskText = createdList[index].text;
-    var doneTask = document.getElementById("done-task-list");
-    var doneTaskListElement = document.createElement("li");
-    doneTask.appendChild(doneTaskListElement);
-    var doneTaskDiv = document.createElement("div");
-    doneTaskListElement.appendChild(doneTaskDiv);
-    var taskTextPElement = document.createElement("p");
-    doneTaskDiv.appendChild(taskTextPElement);
-    var doneTaskTextNode = document.createTextNode(currentTaskText);
-    taskTextPElement.appendChild(doneTaskTextNode);
+function createParentListElementUi(index) {
+    var parentListElement = document.createElement("li");
 
-    var undoButtonDiv = document.createElement("div");
-    doneTaskListElement.appendChild(undoButtonDiv);
-    var undoButton = document.createElement("button");
-    undoButtonDiv.appendChild(undoButton);
-    undoButton.innerHTML = "Undo";
-    undoButton.onclick = undoDoneOnclick;
+    var recreatedListElementId = generateListId(index);
+    parentListElement.setAttribute("id", recreatedListElementId);
+    parentListElement.setAttribute("data-index", index);
 
+    return parentListElement;
+}
+
+function createListDivElement(index) {
+    var listDivElement = document.createElement("div");
+
+    var recreatedDivElementId = generateParentDivId(index);
+    listDivElement.setAttribute("id", recreatedDivElementId);
+    listDivElement.setAttribute("data-index", index);
+
+    listDivElement.classList.add("task-text-styling");
+    listDivElement.classList.add("wrap-text");
+    listDivElement.classList.add("col-12");
+
+    return listDivElement;
+
+}
+function createTextNodeDiv(index) {
+    var textNodeDiv = document.createElement("div");
+    var recreatedTextNodeDivId = generateTextTaskId(index);
+    textNodeDiv.setAttribute("id", recreatedTextNodeDivId);
+    textNodeDiv.setAttribute("data-index", index);
+    return textNodeDiv;
+}
+function createDeleteButtonDivUi(index) {
     var deleteButtonDiv = document.createElement("div");
-    doneTaskListElement.appendChild(deleteButtonDiv);
+    var recreatedDeleteButtonDivId = generateMarkDeleteButtonId(index);
+    deleteButtonDiv.setAttribute("id", recreatedDeleteButtonDivId);
+    deleteButtonDiv.setAttribute("data-index", index);
+    return deleteButtonDiv;
+
+}
+function createDeleteButtonUi(index) {
     var deleteButton = document.createElement("button");
-    deleteButtonDiv.appendChild(deleteButton);
-    deleteButton.innerHTML = "delete";
     deleteButton.onclick = markDeleteWhenDoneOnClick;
 
-    var recreatedMarkDeleteButtonDivId = generateMarkDeleteButtonId(index);
-    deleteButtonDiv.setAttribute("id", recreatedMarkDeleteButtonDivId);
-    deleteButtonDiv.setAttribute("data-index", index);
-    var recreatedMarkDeleteButtonId = generateMarkDeleteButtonId(index);
-    deleteButton.setAttribute("id", recreatedMarkDeleteButtonId);
+    var recreatedDeleteButtonId = generateMarkDeleteButtonId(index);
+    deleteButton.setAttribute("id", recreatedDeleteButtonId);
     deleteButton.setAttribute("data-index", index);
-    doneTaskListElement.appendChild(deleteButtonDiv); 
 
-    var recreatedUndoButtonDivId = generateUndoButtonId(index);
-    undoButtonDiv.setAttribute("id", recreatedUndoButtonDivId);
+    deleteButton.innerHTML = "&#10007";
+    deleteButton.classList.add("mark-done-delete-button");
+    deleteButton.classList.add("button-styling");
+
+    var deleteButtonDiv = createDeleteButtonDivUi(index);
+    deleteButtonDiv.appendChild(deleteButton);
+    return deleteButtonDiv;
+
+}
+function createUndoButtonDivUi(index) {
+    var undoButtonDiv = document.createElement("div");
+    var recreatedUndoDivId = generateUndoButtonId(index);
+    undoButtonDiv.setAttribute("id", recreatedUndoDivId);
     undoButtonDiv.setAttribute("data-index", index);
+    return undoButtonDiv;
+
+}
+function createUndoButtonUi(index) {
+    var undoButton = document.createElement("button");
+    undoButton.onclick = undoDoneOnclick;
+
     var recreatedUndoButtonId = generateUndoButtonId(index);
     undoButton.setAttribute("id", recreatedUndoButtonId);
     undoButton.setAttribute("data-index", index);
 
-    var recreatedListId = generateListId(index);
-    doneTaskListElement.setAttribute("id", recreatedListId);
-    doneTaskListElement.setAttribute("data-index", index);
-
-    var recreatedParentDivId = generateParentDivId(index);
-    doneTaskDiv.setAttribute("id", recreatedParentDivId);
-    doneTaskDiv.setAttribute("data-index", index);
-
-    var recreatedTextId = generateTextTaskId(index);
-    taskTextPElement.setAttribute("id", recreatedTextId);
-    taskTextPElement.setAttribute("data-index", index);
-
+    undoButton.innerHTML = "&#x238c";
     undoButton.classList.add("button-styling");
-    deleteButton.classList.add("button-styling");
-    taskTextPElement.classList.add("done-task");
-    doneTaskDiv.classList.add("task-text-styling");
-    doneTaskDiv.classList.add("wrap-text");
-    doneTaskDiv.classList.add("col-9");
-} 
+    undoButton.classList.add("mark-done-delete-button");
 
-function createDeleteUi(index) {
-    var currentTaskText = createdList[index].text;
-    var deletedTask = document.getElementById("deleted-task-list");
-    var deletedListElement = document.createElement("li");
-    deletedTask.appendChild(deletedListElement);
-    var deletedTaskDiv = document.createElement("div");
-    deletedListElement.appendChild(deletedTaskDiv);
-    var taskTextPElement = document.createElement("p");
-    deletedTaskDiv.appendChild(taskTextPElement);
-    var textNode = document.createTextNode(currentTaskText);
-    taskTextPElement.appendChild(textNode);
-
-    var undoButtonDiv = document.createElement("div");
-    deletedListElement.appendChild(undoButtonDiv);
-    var undoButton = document.createElement("button");
+    var undoButtonDiv = createUndoButtonDivUi(index);
     undoButtonDiv.appendChild(undoButton);
-    undoButton.innerHTML = "Undo";
-    undoButton.onclick = undoDeleteOnclick;
+    return undoButtonDiv;
 
+}
+function createDoneButtonDivUi(index) {
     var doneButtonDiv = document.createElement("div");
-    deletedListElement.appendChild(doneButtonDiv);
-    var doneButton = document.createElement("button");
-    doneButtonDiv.appendChild(doneButton);
-    doneButton.innerHTML = "Done";
-    doneButton.classList.add("button-styling"); 
-    doneButton.onclick = markDoneOnclick; 
-
-    var recreatedDoneButtonDivId = generateMarkDoneButtonId(index); 
+    var recreatedDoneButtonDivId = generateMarkDoneButtonId(index);
     doneButtonDiv.setAttribute("id", recreatedDoneButtonDivId);
     doneButtonDiv.setAttribute("data-index", index);
-
+    return doneButtonDiv;
+}
+function createDoneButtonUi(index) {
+    var doneButton = document.createElement("button");
+    var doneButtonDiv = createDoneButtonDivUi(index);
+    doneButton.innerHTML = "&#10003";
+    doneButton.classList.add("button-styling");
+    doneButton.classList.add("mark-done-delete-button");
     var recreatedDoneButtonId = generateMarkDoneButtonId(index);
     doneButton.setAttribute("id", recreatedDoneButtonId);
-    doneButton.setAttribute("data-index", index); 
+    doneButton.setAttribute("data-index", index);
+    doneButton.onclick = markDoneOnclick;
+    doneButtonDiv.appendChild(doneButton);
+    return doneButtonDiv;
 
-    var recreatedUndoButtonDivId = generateUndoButtonId(index);
-    undoButtonDiv.setAttribute("id", recreatedUndoButtonDivId);
-    undoButtonDiv.setAttribute("data-index", index);
-
-    var recreatedUndoButtonId = generateUndoButtonId(index);
-    undoButton.setAttribute("id", recreatedUndoButtonId);
-    undoButton.setAttribute("data-index", index);
-
-    var recreatedListId = generateListId(index);
-    deletedListElement.setAttribute("id", recreatedListId);
-    deletedListElement.setAttribute("data-index", index);
-
-    var recreatedParentDivId = generateParentDivId(index);
-    deletedTaskDiv.setAttribute("id", recreatedParentDivId);
-    deletedTaskDiv.setAttribute("data-index", index);
-
-    var recreatedTextId = generateTextTaskId(index);
-    taskTextPElement.setAttribute("id", recreatedTextId);
-    taskTextPElement.setAttribute("data-index", index);
-
-    undoButton.classList.add("button-styling");
-    deletedTaskDiv.classList.add("task-text-styling");
-    deletedTaskDiv.classList.add("wrap-text");
-    deletedTaskDiv.classList.add("col-9");
 }
-
-function createPendingUi(index) {
+function createDoneListContent(index) {
     var currentTaskText = createdList[index].text;
-    var pendingTask = document.getElementById("hold-my-pending-list")
-    var listElement = document.createElement("li");
-    var recreatedListId = generateListId(index);
-    listElement.setAttribute("id", recreatedListId);
-    listElement.setAttribute("data-index", index);
-    pendingTask.appendChild(listElement);
-
-    var parentTaskDiv = document.createElement("div");
-    listElement.appendChild(parentTaskDiv);
-    var recreatedParentDivId = generateParentDivId(index);
-    parentTaskDiv.setAttribute("id", recreatedParentDivId);
-    parentTaskDiv.setAttribute("data-index", index);
-    var childTaskDiv = document.createElement("div");
-    parentTaskDiv.appendChild(childTaskDiv);
-    var recreatedTextId = generateTextTaskId(index);
-    childTaskDiv.setAttribute("id", recreatedTextId);
-    childTaskDiv.setAttribute("data-index", index);
     var taskTextPElement = document.createElement("p");
-    childTaskDiv.appendChild(taskTextPElement);
-    var textNode = document.createTextNode(currentTaskText);
-    taskTextPElement.appendChild(textNode);
+    var taskTextNode = document.createTextNode(currentTaskText);
 
-    var markDoneButtonDiv = document.createElement("div");
-    parentTaskDiv.appendChild(markDoneButtonDiv);
-    var markDoneButton = document.createElement("button");
-    markDoneButton.innerHTML = "&#10003";
-    markDoneButtonDiv.appendChild(markDoneButton);
-    markDoneButton.onclick = markDoneOnclick;
-    markDoneButton.classList.add("mark-done-delete-button");
+    taskTextPElement.classList.add("done-task");
 
-    var markDeleteButtonDiv = document.createElement("div");
-    parentTaskDiv.appendChild(markDeleteButtonDiv);
-    var markDeleteButton = document.createElement("button");
-    markDeleteButton.onclick = deleteButtonOnclick;
-    markDeleteButton.innerHTML = "&#10007";
-    markDeleteButtonDiv.appendChild(markDeleteButton);
-    markDeleteButton.classList.add("mark-done-delete-button");
-
-    var recreatedMarkDoneDivId = generateMarkDoneButtonId(index);
-    markDoneButtonDiv.setAttribute("id", recreatedMarkDoneDivId);
-    markDoneButtonDiv.setAttribute("data-index", index);
-    var recreatedMarkDoneButtonId = generateMarkDoneButtonId(index);
-    markDoneButton.setAttribute("id", recreatedMarkDoneButtonId);
-    markDoneButton.setAttribute("data-index", index);
-
-    var recreatedMarkDeleteButtonId = generateMarkDeleteButtonId(index);
-    markDeleteButtonDiv.setAttribute("id", recreatedMarkDeleteButtonId);
-    markDeleteButtonDiv.setAttribute("data-index", index);
-    var recreatedMarkDeleteButtonId = generateMarkDeleteButtonId(index);
-    markDeleteButton.setAttribute("id", recreatedMarkDeleteButtonId);
-    markDeleteButton.setAttribute("data-index", index);
-
-    var recreatedTextId = generateTextTaskId(index);
-    taskTextPElement.setAttribute("id", recreatedTextId);
+    var recreatedTaskTextId = generateTextTaskId(index);
+    taskTextPElement.setAttribute("id", recreatedTaskTextId);
     taskTextPElement.setAttribute("data-index", index);
 
-    parentTaskDiv.classList.add("row");
-    childTaskDiv.classList.add("col-9");
-    childTaskDiv.classList.add("task-text-styling");
-    childTaskDiv.classList.add("wrap-text");
-    markDoneButtonDiv.classList.add("col-1");
-    markDoneButton.classList.add("button-styling");
-    markDeleteButtonDiv.classList.add("col-1");
-    markDeleteButton.classList.add("button-styling");
+    var textNodeDiv = createTextNodeDiv(index);
+    var listDivElement = createListDivElement(index);
+    var listContentDiv = createParentListElementUi(index);
+    var deleteButton = createDeleteButtonUi(index);
+    var undoButton = createUndoButtonUi(index);
+
+    listDivElement.classList.add("task-text-styling");
+    listDivElement.classList.add("wrap-text");
+    listDivElement.classList.add("row");
+    textNodeDiv.classList.add("col-12");
+    deleteButton.classList.add("col-4");
+    undoButton.classList.add("col-4"); 
+
+    taskTextPElement.appendChild(taskTextNode);
+    textNodeDiv.appendChild(taskTextPElement);
+    listDivElement.appendChild(textNodeDiv);
+    listDivElement.appendChild(undoButton);
+    listDivElement.appendChild(deleteButton);
+    listContentDiv.appendChild(listDivElement);
+
+    return listContentDiv;
+
 }
+
+function createDeleteListContent(index) {
+    var currentTaskText = createdList[index].text;
+    var taskTextPElement = document.createElement("p");
+    var taskTextNode = document.createTextNode(currentTaskText);
+    taskTextPElement.appendChild(taskTextNode);
+
+    var recreatedTaskTextId = generateTextTaskId(index);
+    taskTextPElement.setAttribute("id", recreatedTaskTextId);
+    taskTextPElement.setAttribute("data-index", index);
+
+    var textNodeDiv = createTextNodeDiv(index);
+    var listDivElement = createListDivElement(index);
+    var parentListElement = createParentListElementUi(index);
+    var doneButton = createDoneButtonUi(index);
+    var undoButton = createUndoButtonUi(index);
+
+    listDivElement.classList.add("task-text-styling");
+    listDivElement.classList.add("wrap-text");
+    listDivElement.classList.add("row");
+    textNodeDiv.classList.add("col-12");
+    doneButton.classList.add("col-4");
+    undoButton.classList.add("col-4"); 
+
+    textNodeDiv.appendChild(taskTextPElement);
+    listDivElement.appendChild(textNodeDiv);
+    listDivElement.appendChild(undoButton);
+    listDivElement.appendChild(doneButton);
+    parentListElement.appendChild(listDivElement);
+
+    return parentListElement;
+
+}
+function createPendingListContent(index){
+    var currentTaskText = createdList[index].text; 
+    var taskTextPElement = document.createElement("p");
+    var taskTextNode = document.createTextNode(currentTaskText); 
+    taskTextPElement.appendChild(taskTextNode); 
+
+    var recreatedTaskTextId = generateTextTaskId(index);
+    taskTextPElement.setAttribute("id", recreatedTaskTextId);
+    taskTextPElement.setAttribute("data-index", index);
+
+    var textNodeDiv = createTextNodeDiv(index);
+    var listDivElement = createListDivElement(index);
+    var parentListElement = createParentListElementUi(index);
+    var doneButton = createDoneButtonUi(index);
+    var deleteButton = createDeleteButtonUi(index); 
+
+    listDivElement.classList.add("row");
+    textNodeDiv.classList.add("col-9");
+    textNodeDiv.classList.add("task-text-styling");
+    textNodeDiv.classList.add("wrap-text");
+    doneButton.classList.add("col-1");
+    deleteButton.classList.add("col-1");
+
+    textNodeDiv.appendChild(taskTextPElement);
+    listDivElement.appendChild(textNodeDiv);
+    listDivElement.appendChild(doneButton);
+    listDivElement.appendChild(deleteButton);
+    parentListElement.appendChild(listDivElement);
+
+    return parentListElement;
+}
+function createPendingUi(index) {
+    var pendingTaskList = document.getElementById("hold-my-pending-list");
+    var pendingListContent = createPendingListContent(index);
+    pendingTaskList.appendChild(pendingListContent);
+    return pendingTaskList; 
+    
+}
+function createDoneUi(index) {
+    var doneTask = document.getElementById("done-task-list");
+    var listContent = createDoneListContent(index);
+    doneTask.appendChild(listContent);
+    return doneTask;
+}
+function createDeleteUi(index) {
+    var deletedTask = document.getElementById("deleted-task-list");
+    var deletedListContent = createDeleteListContent(index);
+    deletedTask.appendChild(deletedListContent);
+    return deletedTask;
+
+}
+
 function updateStateAndCreateUi(currentTask, newState, createdList, index) {
     // 1. Delete existing UI
     // 2. Update state
     // 3. Create new UI for new state
+
     if (currentTask.state === "not done") {
         removePendingTaskUi(index);
     } else if (currentTask.state === "done") {
@@ -273,9 +306,10 @@ function submitButtonOnclick(event) {
     } else {
         createdList = addTask(textUserHasEntered, createdList);
         var i = createdList.length - 1;
-        currentTaskState = createdList[i].state;
+        var currentTask = createdList[i];
+        var currentTaskState = createdList[i].state;
         localStorage.setItem("list", JSON.stringify(createdList));
-        updateStateAndCreateUi(textUserHasEntered, currentTaskState, createdList, i);
+        updateStateAndCreateUi(currentTask, currentTaskState, createdList, i);
     }
 
     console.log(createdList);
@@ -288,9 +322,7 @@ function removePendingTaskUi(index) {
     var pendingListId = generateListId(index);
     var fetchPendingListId = document.getElementById(pendingListId);
     if (fetchPendingListId === null) {
-        // I have not created any UI for this yet
-        // therefore I don't need to delete it
-        // therefore do nothing
+
     } else {
         var pendingList = document.getElementById("hold-my-pending-list");
         pendingList.removeChild(fetchPendingListId);
@@ -306,8 +338,6 @@ function removeDoneTaskUi(index) {
         var doneListItem = document.getElementById("done-task-list");
         doneListItem.removeChild(doneTaskToRemove);
     }
-    // var doneListItem = document.getElementById("done-task-list");
-    // doneListItem.removeChild(doneTaskToRemove);
 }
 
 function removeDeletedTaskUi(index) {
@@ -319,8 +349,6 @@ function removeDeletedTaskUi(index) {
         var deletedListItem = document.getElementById("deleted-task-list");
         deletedListItem.removeChild(deletedTaskToRemove);
     }
-    // var deletedListItem = document.getElementById("deleted-task-list");
-    // deletedListItem.removeChild(deletedTaskToRemove);
 }
 
 function updateUiOnClick(event, newState) {
@@ -403,4 +431,3 @@ function generateListId(index) {
 // 10. When submit button is clicked:
 //     10.1 it will append the text to the pending list with the mark done/delete buttons
 //     10.2 the input field will become empty once the button is clicked 
-// 11. When Undo button is clicked, 
